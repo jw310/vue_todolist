@@ -1,0 +1,59 @@
+@mixin css3($property, $value) {    //  瀏覽器前綴
+    @each $prefix in -webkit-, -moz-, -ms-, -o-, '' { #{$prefix}#{$property}: $value; } 
+}
+
+@mixin text-hide {     // 圖片取代文字2
+    text-indent: 110%;
+    white-space: nowrap;
+    overflow: hidden;      // 清除浮動
+}
+
+@mixin clearflx {     // 清除浮動
+    overflow: hidden;
+}
+
+@mixin clearfix() {     //  清除浮動(Compass)  
+    &:before,   &:after {    content: "";     display: table;   
+    }   
+    &:after {    clear: both;   }
+}
+
+@mixin box-emboss($opacity, $opacity2) {    // 內外陰影
+    box-shadow:white($opacity) 0 1px 0, inset black($opacity2) 0 1px 0; 
+}
+
+
+
+@mixin circle($size, $bgcolor) {  // 畫圓
+    border-radiu: 50%;
+    height: $size;
+    width: $size;
+    font-size: $size/3;
+    background: $bgcolor;
+}
+
+@mixin desktop-below {    // RWD size
+    @media (max-width: 1023px){
+       @content;
+   }
+}
+
+@mixin line-height($heightValue: 12 ) {     // 行高
+    line-height: $heightValue + px; //fallback for old browsers   line-height: (0.125 * $heightValue) + rem; 
+}
+
+@mixin abs-pos ($top: auto, $right: auto, $bottom: auto, $left: auto) {   // 絕對定位  
+    top: $top;   right: $right;   bottom: $bottom;   left: $left;   position: absolute; 
+}
+
+@mixin pad {    // RWD size
+    @media (max-width: 768px){
+       @content;
+   }
+}
+    
+@mixin mobile {     // RWD size
+    @media (max-width: 568px){
+       @content;
+   } 
+}

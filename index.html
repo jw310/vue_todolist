@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/all.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/regular.js" integrity="sha384-t7yHmUlwFrLxHXNLstawVRBMeSLcXTbQ5hsd0ifzwGtN7ZF7RZ8ppM7Ldinuoiif" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>    
+    <script src="js/vendor.js"></script>
+</head>
+<div id="app">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">待辦事項</span>
+    </div>                                                            <!-- 輸入新事項-->
+    <input type="text" class="form-control" placeholder="準備要做的任務" v-model="newtodo" @keyup.enter="addtodo">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" @click="addtodo" >新增</button>
+    </div>
+  </div>
+  <div class="card text-center">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">        <!-- 頁面切換功能-->
+          <a class="nav-link" :class="{'active': visibility == 'all'}" @click="visibility = 'all'" href="#">全部</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" :class="{'active': visibility == 'active'}" @click="visibility = 'active'" href="#">進行中</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" :class="{'active': visibility == 'completed'}" @click="visibility = 'completed'" href="#">已完成</a>
+        </li>
+      </ul>
+    </div>
+    <ul class="list-group list-group-flush text-left">
+                                           <!--呈現 data 資料-->
+     <li class="list-group-item" v-for="(item, key) in filtertodos" @dblclick="edittodo(item)">
+       <div class="d-flex" v-if="item.id != cacheTodo.id">
+         <div class="form-check">                         <!--綁定 checkbox-->    
+         <input type="checkbox" class="form-check-input" v-model="item.completed" :id="item.id">
+                                                         <!--被勾選後，加上樣式-->
+         <label class="form-check-label"  :class="{'completed': item.completed}"  :for="item.id">
+                   {{item.title}}
+                  </label>
+                </div>
+          <button type="button" class="close ml-auto" @click="removetodo(item)" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <input type="text" class="form-control" 
+               v-model="cacheTitle"
+               @keyup.esc="canceledit(item)"
+               @keyup.enter="doneedit(item)"
+               v-if="item.id == cacheTodo.id">
+      </li>
+      <!-- <li class="list-group-item">
+        <div class="d-flex">
+          <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="a1">
+            <label class="form-check-label completed" for="a1">
+              Cras justo odio
+            </label>
+          </div>
+          <button type="button" class="close ml-auto" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </li> -->
+      <!-- <li class="list-group-item">
+        <input type="text" class="form-control">
+      </li> -->
+    </ul>
+    <div class="card-footer d-flex justify-content-between">
+       <!--利用 JS.filter() 將todos帶入 return 內容為物件.completed為false的陣列，然後計算長度-->
+      <span>還有 {{this.todos.filter(function(item){ return !item.completed }).length}} 筆任務未完成</span>
+      <a href="#" @click="clearall">清除所有任務</a>
+    </div>
+  </div>
+</div>
+
+      <style>
+      .completed {
+        text-decoration: line-through
+      }
+      </style>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="js/all.js"></script>
+</body>
+</html>

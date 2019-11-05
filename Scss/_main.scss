@@ -1,0 +1,18 @@
+// 背景底色
+.wrap {
+  background-color: $bg-color;
+}
+
+.btn {
+  //color: #f50606;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  display: block;
+  text-decoration: none; // 文字樣式
+  margin-top: .5rem;
+  text-align: center;    // 置中
+  transition: background-color .5s;   // 漸變
+  &:hover, &:focus {
+  background-color: darken($btn-color, 15%);
+  }
+ }

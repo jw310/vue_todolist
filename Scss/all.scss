@@ -1,0 +1,7 @@
+//設定一個元素樣式為 box-sizing: border-box;，這個元素的內距和邊框將不會增加元素本身的寬度
+//元素設定的寬度就已經包含內容寬度、內距與邊框寬度。
+// * {  // 全部元素
+//   -webkit-box-sizing: border-box;
+//      -moz-box-sizing: border-box;
+//           box-sizing: border-box;
+// }
